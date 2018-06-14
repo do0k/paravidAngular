@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="css/app.css">
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-light bg-light mb-3">
     <div class="container">
         <a class="navbar-brand" href="#">Navbar</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -47,42 +47,55 @@
     </div>
 </nav>
 <div class="container">
-    <div ng-controller="eventController">
-        <div class="row">
-            <div class="col-12">
+    <div ng-controller="editEventController" class="mt-3">
+        <div class="row mt-3">
+            <div class="col-6 mx-auto mt-3">
                 <h1>
                     New Event:
                 </h1>
             </div>
         </div>
         <div class="row">
-            <div class="col-6">
-                <form>
+            <div class="col-6 mx-auto">
+                <form name="editEventForm">
                     <div class="form-group">
                         <label for="eventName">Event Name:</label>
-                        <input type="text" class="form-control" id="eventName" placeholder="Name of Your Event ...">
+                        <input type="text" class="form-control" id="eventName" placeholder="Name of Your Event ..."
+                               required ng-model="event.name">
                     </div>
                     <div class="form-group">
                         <label for="eventDate">Event Date:</label>
-                        <input type="text" class="form-control" id="eventDate" placeholder="format (mm/dd/yyyy) ...">
+                        <input type="text" class="form-control" id="eventDate" placeholder="format (mm/dd/yyyy) ..."
+                               required ng-pattern="/\d\d\/\d\d\/\d\d\d\d/" ng-model="event.date">
                     </div>
                     <div class="form-group">
                         <label for="eventTime">Event Time:</label>
-                        <input type="text" class="form-control" id="eventTime" placeholder="Start and End Time ...">
+                        <input type="text" class="form-control" id="eventTime" placeholder="Start and End Time ..." required ng-model="event.time">
                     </div>
                     <div class="form-group">
                         <label for="eventAddress">Location:</label>
-                        <input type="text" class="form-control w-100" id="eventAddress" placeholder="Address of Event ...">
+                        <input type="text" class="form-control w-100" id="eventAddress"
+                               placeholder="Address of Event ..." ng-model="event.location.address" required>
                         <div class="row my-3">
                             <div class="col">
-                                <input type="text" class="form-control d-inline float-left" id="eventCity" placeholder="City ...">
+                                <input type="text" class="form-control d-inline float-left" id="eventCity"
+                                       placeholder="City ..." ng-model="event.location.city" required>
                             </div>
                             <div class="col">
-                                <input type="text" class="form-control d-inline" id="eventProvince" placeholder="Province ...">
+                                <input type="text" class="form-control d-inline" id="eventProvince"
+                                       placeholder="Province ..." ng-model="event.location.province" required>
                             </div>
                         </div>
-
                     </div>
+                    <div class="form-group mb-0">
+                        <label for="validatedCustomFile">Image:</label>
+                    </div>
+                    <div class="custom-file">
+                        <input type="file" class="custom-file-input" id="validatedCustomFile" required ng-model="event.imgUrl">
+                        <label class="custom-file-label" for="validatedCustomFile">Choose file...</label>
+                        <img src="" alt="{{ event.name }}" data-ng-src="{{ event.imgUrl }}">
+                    </div>
+                    <button class="btn btn-primary mt-3 btn-block" type="submit">Save</button>
                 </form>
             </div>
         </div>
@@ -96,5 +109,6 @@
 <script src="lib/angular/angular.js"></script>
 <script src="js/app.js"></script>
 <script src="js/controllers/eventController.js"></script>
+<script src="js/controllers/editEventController.js"></script>
 </body>
 </html>
